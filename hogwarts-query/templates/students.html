@@ -1,0 +1,50 @@
+<!--
+  Copyright 2018 Google LLC
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+     <title>Students</title>
+  </head>
+  <body>
+    <h1>All Students</h1>
+    {% for each_student in student_info %}
+      <h3>{{each_student.first_name}} {{each_student.last_name}}</h3>
+      <p>ID: {{ each_student.student_id}}</p>
+      <p>Courses:</p>
+      <ul>
+      {% for each_enrollment in enrollment_info %}
+        {% if each_enrollment.student == each_student.key %}
+          <li>{{ each_enrollment.course.get().name }}</li>
+        {% endif %}
+      {% endfor %}
+      </ul>
+    {% endfor %}
+
+    <h3>Add a New Student</h3>
+    <form method="post" action="/new-student">
+      First name:<br>
+      <input type="text" name="first-name" value="First Name">
+      <br>
+      Last name:<br>
+      <input type="text" name="last-name" value="Last Name">
+      <br>
+      Student ID:<br>
+      <input type="text" name="student-id" value="Student ID">
+      <br>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>
